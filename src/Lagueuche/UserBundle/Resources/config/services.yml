@@ -1,0 +1,4 @@
+services:
+#    lagueuche_user.example:
+#        class: Lagueuche\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

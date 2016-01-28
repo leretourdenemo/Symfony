@@ -1,0 +1,43 @@
+lagueuche_platform_home:
+    path:    /{page}
+    defaults:  { _controller: LagueuchePlatformBundle:Advert:index, page: 1 }
+    requirements:
+        page: \d*
+
+lagueuche_platform_view:
+    path:    /advert/{id}
+    defaults: { _controller: LagueuchePlatformBundle:Advert:view }
+    requirements:
+        id: \d+
+
+lagueuche_platform_add:
+    path:    /add
+    defaults: { _controller: LagueuchePlatformBundle:Advert:add }
+
+lagueuche_platform_edit:
+    path:    /edit/{id}
+    defaults: { _controller: LagueuchePlatformBundle:Advert:edit }
+    requirements:
+        id: \d+
+
+lagueuche_platform_delete:
+    path:    /delete/{id}
+    defaults: { _controller: LagueuchePlatformBundle:Advert:delete }
+    requirements:
+        id: \d+
+
+lagueuche_platform_view_slug:
+    path:    /{year}/{slug}.{format}
+    defaults: { _controller: LagueuchePlatformBundle:Advert:viewSlug }
+    requirements:
+        year:    \d{4}
+        format: html|xml
+
+lagueuche_platform_purge:
+    path:    /purge/{days}
+    defaults:  { _controller: LagueuchePlatformBundle:Advert:purge }
+    requirements:
+        days: \d+
+
+
+

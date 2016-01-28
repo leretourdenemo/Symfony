@@ -1,0 +1,10 @@
+lagueuche_core_homepage:
+    path:     /
+    defaults: { _controller: LagueucheCoreBundle:Home:index }
+
+lagueuche_core_contact:
+    path:    /contact
+    defaults: { _controller: LagueucheCoreBundle:Home:contact }
+
+lagueuche_core_register:
+    path:  /register

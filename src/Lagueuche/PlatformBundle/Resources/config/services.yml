@@ -1,0 +1,51 @@
+services:
+    lagueuche_platform.antispam:
+        class: Lagueuche\PlatformBundle\Antispam\LagueucheAntispam
+        arguments: ['@mailer', %locale%, 50]
+        tags:
+            -  { name: twig.extension }
+
+    lagueuche_platform.advert_purger:
+        class: Lagueuche\PlatformBundle\Purger\LagueuchePurger
+        arguments: ['@doctrine.orm.entity_manager']
+
+    lagueuche_platform.validator.antiflood: # le nom du service
+        class: Lagueuche\PlatformBundle\Validator\AntifloodValidator # la classe du service
+        arguments: ['@request_stack', '@doctrine.orm.entity_manager'] # les données qu'on injecte au service requete et entity manager
+        tags:
+            - { name: validator.constraint_validator, alias: lagueuche_platform_antiflood } # Alias pour retrouver le service
+
+#    lagueuche_platform.doctrine.notification:
+#        class: Lagueuche\PlatformBundle\DoctrineListener\ApplicationNotification
+#        arguments: ['@mailer']
+#        tags:
+#            - { name: doctrine.event_listener, event: postPersist }
+
+    lagueuche_platform.ckeditor:
+        class: Lagueuche\PlatformBundle\Form\CkeditorType
+        tags:
+            - { name: form.type, alias: ckeditor }
+
+    lagueuche_platform.beta.html:
+        class: Lagueuche\PlatformBundle\Beta\BetaHTML
+
+    lagueuche_platform.beta.listener:
+        class: Lagueuche\PlatformBundle\Beta\BetaListener
+        arguments: ['@lagueuche_platform.beta.html', "2013-10-20"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: processBeta }
+
+    lagueuche_platform.censorship_processor:
+        class: Lagueuche\PlatformBundle\Bigbrother\CensorshipProcessor
+        arguments: ['@mailer']
+
+    lagueuche_platform.censorship_listener:
+        class: Lagueuche\PlatformBundle\Bigbrother\CensorshipListener
+        arguments: ['@lagueuche_platform.censorship_processor', [1, 2, 3]]
+        tags:
+            - { name: kernel.event_listener, event: lagueuche_platform.bigbrother.post_message, method: processMessage }
+
+    lagueuche_platform.json_paramconverter:
+        class: Lagueuche\PlatformBundle\ParamConverter\JsonParamConverter
+        tags:
+            - { name: request.param_converter }

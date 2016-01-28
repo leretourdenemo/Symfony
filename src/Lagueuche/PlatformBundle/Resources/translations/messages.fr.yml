@@ -1,0 +1,4 @@
+'Symfony2 is great': 'J''aime Symfony2'
+hello: Bonjour %name% !
+Bye: 'Au revoir'
+Le site où on apprend tout... à partir de zéro !: The website where you learn it all... from scratch!
